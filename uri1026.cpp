@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <math.h>
+#include<stdlib.h>
 
 //https://www.urionlinejudge.com.br/judge/en/runs/add/1026
 
@@ -8,7 +9,6 @@ using namespace std;
 
 void intToBinary(int num,int* numBinario)
 {
-
 	int dividendo = num;
 	int divisor = 2;
 	int resultado = -1;
@@ -71,30 +71,28 @@ int somaSemCarry(int *array1,int *array2){
 
 int main()
 {
+	char *entrada = (char*) malloc(sizeof(char));
+	int num1 = 0;
+	int num2 = 0;
+	inicio:
 
-	int num1;
-	int num2;
+	gets(entrada);
 
-	cin >> num1;
-	cin >> num2;
+	if(*entrada == EOF){
+		goto saida;
+	}
+		/* code */
+	
+	num1 = (int) entrada[0];
+	num2 = (int) entrada[2];
 	int array1[32];
 	intToBinary(num1,array1);
 	int array2[32];
 	intToBinary(num2,array2);
-	
-	cout << "segundo numero" << endl;
-	for (int i = 0; i < 32; ++i)
-	{
-		cout << array1[i];
-	}
-	
-	cout << endl;
-	
-	cout << "primeiro numero" << endl;
+	cout << somaSemCarry(array1,array2)<< endl;;
+	goto inicio;
 
-	for (int i = 0; i < 32; ++i){	
-		cout << array2[i];
-	}
-	cout << somaSemCarry(array1,array2);
+	saida:
+	return 0;
 }
 
