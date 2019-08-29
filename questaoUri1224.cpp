@@ -7,6 +7,11 @@
 #include <math.h>
 #include <sstream>
 #include <vector>
+#include <bits/stdc++.h>
+#include <string>
+#include <stdlib.h>
+#include <sstream>
+
 
 using namespace std;
 
@@ -78,20 +83,57 @@ void cards(vector<int> cartas, int direita, int esquerda, int numCartasEscolhida
 int main()
 {
     //formula da quantidade de possibilidades  = numCartas
-    totalCartas = 4;
+    int totalCartas  = 0;
     numTentativas = 0;
     vector<int> cartas;
-    cartas.push_back(47);
-    cartas.push_back(50);
-    cartas.push_back(-3);
-    cartas.push_back(7);
+    stringstream streamNum;
 
-    cards(cartas, 3, 0, 0, 4, 0, 0, 1);
-    for (int i = 0; i < totalCartas; i++)
-    {
-        cout << listaDePossibilidades.back() << endl;
-        listaDePossibilidades.pop_back();
+    int num = 0;
+    bool encontrou = false;
+    int i = 0;
+
+    char * entrada;
+    entrada = (char*) malloc (sizeof(string)); 
+
+
+    if(fgets(entrada,sizeof(entrada)/sizeof(entrada[0]),stdin) == NULL){
+        goto saida;
+    }
+    fflush(stdin);
+    string numString;
+	while(isdigit(entrada[i])  || entrada[i] == ' '){
+		if(entrada[i] == ' '){
+			encontrou = true;
+		}
+		if(!encontrou){
+            numString += entrada[i];
+            
+		}else{
+            streamNum << numString;
+            totalCartas += 1;
+           streamNum >> num;
+            cartas.push_back(num);
+            num = 0;
+            encontrou = false;
+		}i++;
     }
 
+    for (int i = 0; i < totalCartas; i++)
+    {
+       cout <<  cartas[i] << endl;
+    }
+
+    // cartas.push_back(47);
+    // cartas.push_back(50);
+    // cartas.push_back(-3);
+    // cartas.push_back(7);
+
+    // cards(cartas, 3, 0, 0, 4, 0, 0, 1);
+    // for (int i = 0; i < totalCartas; i++)
+    // {
+    //     cout << listaDePossibilidades.back() << endl;
+    //     listaDePossibilidades.pop_back();
+    // }
+    saida:
     return 0;
 }
