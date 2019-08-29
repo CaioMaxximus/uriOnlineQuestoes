@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <iostream>
 #include <math.h>
-#include<stdlib.h>
+#include <sstream>
 
 //https://www.urionlinejudge.com.br/judge/en/runs/add/1026
 
 using namespace std;
 
-void intToBinary(int num,int* numBinario)
+void intToBinary(unsigned int num,int* numBinario)
 {
-	int dividendo = num;
-	int divisor = 2;
-	int resultado = -1;
+	unsigned int dividendo = num;
+	const  int divisor = 2;
+	unsigned int resultado = 1;
 
 	for (int i = 31; i >= 0; --i)
 	{
@@ -28,9 +28,9 @@ void intToBinary(int num,int* numBinario)
 	}
 }
 
-int  binaryToInt(int *array){
+unsigned int  binaryToInt(int *array){
 	
-	int saida = 0;
+	unsigned int saida = 0;
 
 	int count = 31;
 
@@ -43,9 +43,9 @@ int  binaryToInt(int *array){
 	return saida;
 }
 
-int somaSemCarry(int *array1,int *array2){
+unsigned int somaSemCarry(int *array1,int *array2){
 	int arraySoma[32];
-	int saida = 0;
+	unsigned int saida = 0;
 	int soma = 0;
 	int bitArray1 = 0;
 	int bitArray2 = 0;
@@ -69,27 +69,53 @@ int somaSemCarry(int *array1,int *array2){
 }
 
 
+
+
 int main()
 {
-	char *entrada = (char*) malloc(sizeof(char));
-	int num1 = 0;
-	int num2 = 0;
 	inicio:
+	string strNum1 = "";
+	string strNum2 = "";
+	register char entrada[30];
+	
+	unsigned int num1 = 0;
+	unsigned int num2 = 0;
+	bool encontrouPrimeiro = false;
+	int i = 0;
+	stringstream streamNum1;
+	stringstream streamNum2;
 
-	gets(entrada);
+	register int array1[32];
+	register int array2[32];
 
-	if(*entrada == EOF){
+	if(fgets(entrada,sizeof(entrada)/sizeof(entrada[0]),stdin) == NULL){
 		goto saida;
 	}
-		/* code */
-	
-	num1 = (int) entrada[0];
-	num2 = (int) entrada[2];
-	int array1[32];
+	fflush(stdin);
+	while(isdigit(entrada[i])  || entrada[i] == ' '){
+		if(entrada[i] == ' '){
+			encontrouPrimeiro = true;
+		}
+		if(!encontrouPrimeiro){
+			strNum1 += entrada[i];
+		}else{
+			strNum2 += entrada[i];
+		}i++;
+	}
+
+	streamNum1 << strNum1;
+	streamNum2 << strNum2;
+
+	streamNum1 >> num1;
+	streamNum2 >> num2;
+
 	intToBinary(num1,array1);
-	int array2[32];
 	intToBinary(num2,array2);
+
+	
 	cout << somaSemCarry(array1,array2)<< endl;;
+	
+
 	goto inicio;
 
 	saida:
